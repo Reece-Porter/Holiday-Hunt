@@ -256,9 +256,9 @@ const pricingItems = [
   { label: "Ohrid → Skopje bus (for flight home)", amount: "£11", note: "3hr journey, several daily" },
   { label: "Local transport — Bolt/taxi within cities", amount: "£40", note: "Bolt works in all 5 cities; fares are very cheap" },
   { label: "Accommodation — 14 nights (pp, sharing a double)", amount: "£315", note: "Avg £22.50pp/night across mix of budget & mid-range" },
-  { label: "Food", amount: "£220", note: "Dubrovnik ~£22/day · Kotor ~£16/day · Sarajevo, Tirana & Ohrid ~£12–13/day. Meals from £3–8 outside Croatia." },
+  { label: "Food", amount: "£300", note: "Dubrovnik ~£22/day · Kotor ~£16/day · Sarajevo, Tirana & Ohrid ~£12–13/day. Meals from £3–8 outside Croatia." },
   { label: "Drinks, coffee & bars", amount: "£70", note: "~£5/day — local beer from £1.50, coffee from £1. Albania & Bosnia exceptionally cheap." },
-  { label: "Activities", amount: "£140", note: "Dubrovnik walls £27, cable car £15, Lokrum ferry £10, Sarajevo tunnel museum £8, Kotor fortress £8, kayak hire £20, Bunk'Art £5, Berat day trip £11, Ohrid boat & church £12, misc £24" },
+  { label: "Activities", amount: "£250", note: "Dubrovnik walls £27, cable car £15, Lokrum ferry £10, Sarajevo tunnel museum £8, Kotor fortress £8, kayak hire £20, Bunk'Art £5, Berat day trip £11, Ohrid boat & church £12, misc £134" },
 ];
 
 export default function BalkansPage() {
@@ -316,7 +316,7 @@ export default function BalkansPage() {
           {[
             { icon: <Plane className="h-5 w-5" />, label: "Flights from", value: "£60 return" },
             { icon: <Clock className="h-5 w-5" />, label: "Duration", value: "14 nights" },
-            { icon: <PoundSterling className="h-5 w-5" />, label: "From per person", value: "~£1,016" },
+            { icon: <PoundSterling className="h-5 w-5" />, label: "From per person", value: "~£1,206" },
             { icon: <Sun className="h-5 w-5" />, label: "Best time", value: "May–Jun / Sep–Oct" },
           ].map((item, i) => (
             <div key={i} className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
@@ -514,7 +514,7 @@ export default function BalkansPage() {
           <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
             <PoundSterling className="h-5 w-5 text-violet-400" /> Cost Breakdown
           </h2>
-          <PricingTable items={pricingItems} total="~£1,016pp" duration="14 nights" accentColor="violet" />
+          <PricingTable items={pricingItems} total="~£1,206pp" duration="14 nights" accentColor="violet" />
           <p className="text-xs text-slate-500 mt-3">
             Per person, based on 2 people sharing a double room throughout. No car hire needed. Prices in GBP approximate — bus fares priced in EUR/local currency.
           </p>
