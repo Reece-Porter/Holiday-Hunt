@@ -9,6 +9,7 @@ export interface MapMarker {
   description: string;
   lat: number;
   lng: number;
+  color?: string;
 }
 
 interface DestinationMapProps {
@@ -49,7 +50,7 @@ export default function DestinationMap({
     });
   }, []);
 
-  const icon = createCustomIcon(accentColor);
+  const defaultIcon = createCustomIcon(accentColor);
 
   return (
     <MapContainer
@@ -66,7 +67,7 @@ export default function DestinationMap({
         <Marker
           key={index}
           position={[marker.lat, marker.lng]}
-          icon={icon}
+          icon={marker.color ? createCustomIcon(marker.color) : defaultIcon}
         >
           <Popup>
             <div className="custom-popup">
