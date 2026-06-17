@@ -105,7 +105,7 @@ const destinations = [
       "Medieval Kotor by the Adriatic sea",
       "UNESCO Lake Ohrid — Europe's oldest lake",
     ],
-    priceFrom: "£841",
+    priceFrom: "£1,016",
     duration: "14 nights",
     flights: "from £60",
     bestTime: "May–Jun / Sep–Oct",
