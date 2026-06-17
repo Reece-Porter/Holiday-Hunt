@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plane, MapPin, Clock, PoundSterling, ChevronRight, Star } from "lucide-react";
+import { Plane, Clock, ChevronRight, Star } from "lucide-react";
 
 const destinations = [
   {
@@ -130,37 +130,11 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-            Your Next{" "}
+            Our next{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-              Adventure
-            </span>{" "}
-            Awaits
+              holiday?
+            </span>
           </h1>
-
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Six handpicked holiday destinations reachable from Scotland — with real
-            flight info, interactive maps, detailed pricing and everything you need to
-            book with confidence.
-          </p>
-
-          <div className="flex flex-wrap gap-4 justify-center text-sm text-slate-400">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-amber-400" />
-              <span>6 destinations</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Plane className="h-4 w-4 text-amber-400" />
-              <span>Real flight prices</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <PoundSterling className="h-4 w-4 text-amber-400" />
-              <span>Full cost breakdowns</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock className="h-4 w-4 text-amber-400" />
-              <span>Best times to visit</span>
-            </div>
-          </div>
         </div>
       </section>
 
