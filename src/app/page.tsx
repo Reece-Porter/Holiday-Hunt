@@ -6,13 +6,18 @@ const destinations = [
     name: "The Dolomites",
     subtitle: "Italy",
     href: "/dolomites",
-    description:
-      "Dramatic Alpine peaks, world-class skiing and breathtaking summer hikes through UNESCO-listed mountain scenery.",
-    priceFrom: "£1,315",
-    duration: "7 nights",
+    bullets: [
+      "Campervan adventure — wake up to a new peak every morning",
+      "Ski 1,200km of Dolomiti Superski pistes",
+      "Hike the Tre Cime di Lavaredo circuit",
+      "Mountain biking the high Alpine passes",
+      "Stargazing from the van at 2,000m+",
+    ],
+    priceFrom: "£1,025",
+    duration: "10 nights",
     flights: "from £60",
     bestTime: "Dec–Mar / Jun–Sep",
-    tags: ["Skiing", "Hiking", "Mountains", "Italy"],
+    tags: ["Skiing", "Hiking", "Mountains", "Campervan"],
     accent: "amber",
     gradient: "from-amber-900/60 to-orange-900/40",
     border: "border-amber-500/30",
@@ -24,8 +29,13 @@ const destinations = [
     name: "Thailand & Vietnam",
     subtitle: "Southeast Asia",
     href: "/thailand-vietnam",
-    description:
-      "15 nights of temples, street food, Ha Long Bay cruises and Hoi An lanterns on a legendary open-jaw adventure.",
+    bullets: [
+      "Street food from Bangkok to Ho Chi Minh City",
+      "Overnight cruise through Ha Long Bay",
+      "Elephant sanctuary visit near Chiang Mai",
+      "Hoi An old town by lantern light",
+      "Open-jaw flight — fly in one end, out the other",
+    ],
     priceFrom: "£1,660",
     duration: "15 nights",
     flights: "from £550",
@@ -42,8 +52,13 @@ const destinations = [
     name: "Japan",
     subtitle: "Land of the Rising Sun",
     href: "/japan",
-    description:
-      "Bullet trains, cherry blossoms, Fushimi Inari gates, ramen alleys and Mt Fuji views across 12 unforgettable nights.",
+    bullets: [
+      "Ride the Shinkansen bullet train between cities",
+      "Cherry blossom season in Kyoto & Tokyo",
+      "Walk the 10,000 torii gates of Fushimi Inari",
+      "Ramen, sushi & izakayas every single night",
+      "Mt Fuji views from Hakone",
+    ],
     priceFrom: "£2,210",
     duration: "12 nights",
     flights: "from £650",
@@ -60,8 +75,13 @@ const destinations = [
     name: "Banff, Canada",
     subtitle: "Canadian Rockies",
     href: "/banff-canada",
-    description:
-      "Turquoise lakes, grizzly bears, the Icefields Parkway and Jasper dark skies — raw wilderness at its finest.",
+    bullets: [
+      "Drive the legendary Icefields Parkway",
+      "Kayak on turquoise Moraine Lake",
+      "Spot grizzly bears and elk in the wild",
+      "Dark sky reserve stargazing in Jasper",
+      "Ski world-class slopes at Lake Louise",
+    ],
     priceFrom: "£2,190",
     duration: "10 nights",
     flights: "from £550",
@@ -78,8 +98,13 @@ const destinations = [
     name: "Balkans Tour",
     subtitle: "Bosnia • Albania • Montenegro • Croatia",
     href: "/balkans",
-    description:
-      "Europe's best-kept secret: medieval walled cities, Ottoman bazaars, sapphire lakes and riviera beaches on a shoestring.",
+    bullets: [
+      "Game of Thrones filming spots in Dubrovnik",
+      "Ottoman bazaars in Mostar & Sarajevo",
+      "Albanian Riviera beaches on a shoestring",
+      "Medieval Kotor by the Adriatic sea",
+      "UNESCO Lake Ohrid — Europe's oldest lake",
+    ],
     priceFrom: "£1,060",
     duration: "14 nights",
     flights: "from £60",
@@ -97,8 +122,13 @@ const destinations = [
     name: "European Cities",
     subtitle: "Amsterdam • Brussels • Berlin",
     href: "/europe-cities",
-    description:
-      "3 iconic capitals by train: Dutch masters and canals, Belgian beer and waffles, and Berlin's pulsing history and nightlife.",
+    bullets: [
+      "Anne Frank House & Rijksmuseum in Amsterdam",
+      "Belgian beer, waffles & the Grand Place",
+      "Berlin Wall, Brandenburg Gate & nightlife",
+      "City hop the whole route by train",
+      "Three capitals, one trip from £30 flights",
+    ],
     priceFrom: "£1,020",
     duration: "9 nights",
     flights: "from £30",
@@ -169,9 +199,14 @@ export default function Home() {
                   </div>
                 </div>
 
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                  {dest.description}
-                </p>
+                <ul className="mb-4 space-y-1.5">
+                  {dest.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-2 text-sm text-slate-300">
+                      <span className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${dest.highlight.replace("text-", "bg-")}`} />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-5">
