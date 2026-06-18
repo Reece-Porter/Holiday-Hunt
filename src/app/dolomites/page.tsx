@@ -11,10 +11,12 @@ import {
   Bike,
   Mountain,
   ExternalLink,
+  Droplets,
+  Train,
 } from "lucide-react";
 import MapWrapper from "@/components/MapWrapper";
 import PricingTable from "@/components/PricingTable";
-import type { MapMarker } from "@/components/DestinationMap";
+import type { MapMarker, MapRoute } from "@/components/DestinationMap";
 
 // Amber = attractions, Green = campervan parking / sosta
 const markers: MapMarker[] = [
@@ -148,6 +150,70 @@ const skiAddOn = [
 const bikingAddOn = [
   { label: "Mountain bike hire", amount: "£120", note: "4 days — full-suspension MTB from resort shops" },
   { label: "Lift passes (bike uplift)", amount: "£60", note: "Cable car bike transport, 4 days" },
+];
+
+// ── Dolomites + Zürich route map ──────────────────────────────────────────────
+
+const routeMarkers: MapMarker[] = [
+  { name: "Venice — Van pick-up & drop-off", description: "Roadsurfer station 78, Venice Mestre. Start and end of the campervan journey.", lat: 45.4408, lng: 12.3155, color: "#f59e0b" },
+  { name: "Cortina d'Ampezzo", description: "Glamorous ski resort — overnight sosta base", lat: 46.5404, lng: 12.1357, color: "#f59e0b" },
+  { name: "Tre Cime / Misurina", description: "Sosta 3km from the Tre Cime trailhead", lat: 46.5842, lng: 12.2543, color: "#22c55e" },
+  { name: "Lake Braies / Dobbiaco", description: "Lakeside sosta — one of the most scenic overnight spots", lat: 46.6941, lng: 12.0848, color: "#22c55e" },
+  { name: "Val Gardena (Ortisei)", description: "Valley sosta — bus connections to all ski lifts", lat: 46.5754, lng: 11.6725, color: "#22c55e" },
+  { name: "Passo Pordoi / Arabba", description: "Resort sosta — Sella Ronda ski circuit on doorstep", lat: 46.4885, lng: 11.8367, color: "#22c55e" },
+  { name: "Milan — Train connection", description: "Change here for the direct 3.5hr EuroCity train to Zürich", lat: 45.4642, lng: 9.1900, color: "#94a3b8" },
+  { name: "Zürich — 2 nights", description: "Old Town, Lake Zürich, Rhine Falls. Fly home from ZRH → Glasgow.", lat: 47.3769, lng: 8.5417, color: "#38bdf8" },
+];
+
+const vanRoute: MapRoute = {
+  path: [
+    [45.4408, 12.3155],
+    [46.1408, 12.2378],
+    [46.5404, 12.1357],
+    [46.6178, 12.2971],
+    [46.6941, 12.0848],
+    [46.7358, 12.1897],
+    [46.7958, 11.9347],
+    [46.5754, 11.6725],
+    [46.5413, 11.6328],
+    [46.4983, 11.3548],
+    [46.4100, 11.5739],
+    [46.4885, 11.8367],
+    [46.5404, 12.1357],
+    [46.1408, 12.2378],
+    [45.4408, 12.3155],
+  ],
+  color: "#f59e0b",
+  weight: 3,
+  dashArray: "8, 5",
+};
+
+const trainRoute: MapRoute = {
+  path: [
+    [45.4408, 12.3155],
+    [45.4654, 10.9306],
+    [45.4642, 9.1900],
+    [46.0037, 8.9511],
+    [47.3769, 8.5417],
+  ],
+  color: "#38bdf8",
+  weight: 3,
+  dashArray: "4, 4",
+};
+
+const zurichPricing = [
+  { label: "Flight Edinburgh → Venice one-way", amount: "£55", note: "easyJet — book separately instead of a return" },
+  { label: "Roadsurfer van 10 days (÷ 2 people)", amount: "£550", note: "Same as base trip" },
+  { label: "Sosta / camping 10 nights (÷ 2)", amount: "£80", note: "Same as base trip" },
+  { label: "Fuel — Dolomites driving (÷ 2)", amount: "£55", note: "Same as base trip" },
+  { label: "Food & drink — 10 nights van trip", amount: "£170", note: "Self-catering keeps costs low" },
+  { label: "Cable cars & activities", amount: "£80", note: "Same as base trip" },
+  { label: "Venice → Zürich train", amount: "£65", note: "Via Verona & Milan — 2nd class advance fare, ~6hrs total" },
+  { label: "Zürich accommodation — 2 nights (pp)", amount: "£160", note: "Mid-range hotel sharing a double (~£80pp/night)" },
+  { label: "Food & drink — 2 nights Zürich", amount: "£80", note: "Switzerland is pricey — budget £40/day. Mix Migros supermarket lunches with one proper dinner each night." },
+  { label: "Activities in Zürich", amount: "£40", note: "Kunsthaus £18, Rhine Falls day train return £22" },
+  { label: "Local transport — Zürich trams", amount: "£15", note: "24hr pass ~£8/day, covers all trams and buses" },
+  { label: "Flight Zürich (ZRH) → Glasgow (GLA)", amount: "£85", note: "easyJet direct or via London — book separately" },
 ];
 
 export default function DolomitesPage() {
@@ -361,6 +427,100 @@ export default function DolomitesPage() {
               <strong className="text-amber-400">Tips:</strong> Book Misurina and Dobbiaco soste in advance for July/August. Mountain pass parking (Falzarego, Pordoi) is free and stunning but has no facilities — carry water. Most Italian campsites also accept vans. The Dolomiti Bus summer shuttle network accepts bikes and reduces the need to drive every day.
             </p>
           </div>
+
+          {/* Shower situation */}
+          <h3 className="text-lg font-bold text-white mt-8 mb-4 flex items-center gap-2">
+            <Droplets className="w-5 h-5 text-blue-400" />
+            Shower Situation
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                title: "Your Roadsurfer Van",
+                icon: "🚐",
+                color: "border-amber-500/30 bg-amber-500/5",
+                badge: "text-amber-400",
+                points: [
+                  "Beach Hopper: gravity-fed external camp shower bag — cold water rinse, outdoor use only",
+                  "Surfer van: side-mounted outdoor shower tap connected to the fresh water tank — cold unless tank has been in the sun",
+                  "No onboard hot shower in any standard Roadsurfer model",
+                ],
+              },
+              {
+                title: "Paid Sosta Spots (€15–20/night)",
+                icon: "🏕️",
+                color: "border-green-500/30 bg-green-500/5",
+                badge: "text-green-400",
+                points: [
+                  "Premium soste usually have a shower block — token-operated hot water",
+                  "Tokens typically cost €0.50–1 for 5–6 minutes of hot water — bring coins",
+                  "Budget soste (€10–12/night) often have toilets only, no showers",
+                ],
+              },
+              {
+                title: "Official Campsites (Campeggio)",
+                icon: "✅",
+                color: "border-blue-500/30 bg-blue-500/5",
+                badge: "text-blue-400",
+                points: [
+                  "Always have proper hot shower blocks — included in pitch fee (€20–35/night)",
+                  "Generally clean, well-maintained facilities",
+                  "Worth booking 1–2 campsite nights mid-trip for a proper refresh",
+                  "Examples: Camping Olympia (Cortina), Camping Miravalle (Val Gardena)",
+                ],
+              },
+              {
+                title: "Free & Mountain Pass Spots",
+                icon: "🏔️",
+                color: "border-slate-600/30 bg-slate-700/20",
+                badge: "text-slate-400",
+                points: [
+                  "No facilities at all — toilets, showers and water points are absent",
+                  "Use the van's camp shower bag for a quick outdoor rinse",
+                  "Plan around this: don't string multiple free nights together without a shower plan",
+                ],
+              },
+              {
+                title: "Public Pools & Sports Centres",
+                icon: "🏊",
+                color: "border-sky-500/30 bg-sky-500/5",
+                badge: "text-sky-400",
+                points: [
+                  "Piscina comunale (public swimming pool): entry €3–5, showers included",
+                  "Sports centres / palasport: day pass €8–12, full changing rooms and hot showers",
+                  "Most Dolomite resort towns have at least one — ask at tourist info",
+                ],
+              },
+              {
+                title: "Rifugio Mountain Huts",
+                icon: "⛺",
+                color: "border-orange-500/30 bg-orange-500/5",
+                badge: "text-orange-400",
+                points: [
+                  "Some high-altitude rifugi allow hikers to use their showers for €2–3",
+                  "Not guaranteed — ask at the hut",
+                  "Useful after a long hike if you're camping wild nearby",
+                ],
+              },
+            ].map((s) => (
+              <div key={s.title} className={`rounded-xl border ${s.color} p-4`}>
+                <p className={`font-bold text-sm mb-2 ${s.badge}`}>{s.icon} {s.title}</p>
+                <ul className="space-y-1.5">
+                  {s.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2 text-xs text-slate-300">
+                      <span className="mt-1.5 w-1 h-1 rounded-full bg-slate-500 shrink-0" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 bg-blue-900/20 rounded-xl border border-blue-500/20 p-4">
+            <p className="text-xs text-blue-300">
+              <strong>Strategy:</strong> Alternate between free mountain spots (no shower) and paid soste or campsite nights. A rough pattern that works well: 2 nights free pass → 1 night paid sosta (token shower) → repeat, with a full campsite night every 4–5 days for a proper hot wash.
+            </p>
+          </div>
         </section>
 
         {/* Getting Around */}
@@ -552,6 +712,194 @@ export default function DolomitesPage() {
                 <p className="text-slate-400 text-xs mt-1">{item.note}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── DOLOMITES + ZÜRICH ─────────────────────────────────────────── */}
+        <section className="mb-12 border-t border-slate-700/50 pt-12">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className="inline-flex items-center gap-1.5 bg-sky-500/20 text-sky-300 text-xs font-semibold px-3 py-1 rounded-full border border-sky-500/30">
+              🇨🇭 Extension Option
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-3">
+            Dolomites <span className="text-sky-400">+ Zürich</span>
+          </h2>
+          <p className="text-slate-300 text-base max-w-2xl leading-relaxed mb-8">
+            Drop the van back in Venice, jump on a train through the Alps, and add 2 nights in Zürich before flying home from ZRH to Glasgow. A neat way to end the trip with a city contrast to all that mountain air.
+          </p>
+
+          {/* Route strip */}
+          <div className="bg-slate-800/40 rounded-2xl border border-slate-700/50 p-5 mb-8">
+            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wide mb-4">Route</h3>
+            <div className="flex flex-wrap items-center gap-2 text-sm">
+              {[
+                { label: "✈ Fly in", sub: "Edinburgh → Venice" },
+                { label: "🚐 Van tour", sub: "10 nights, Dolomites loop" },
+                { label: "🔑 Drop van", sub: "Venice Mestre" },
+                { label: "🚂 Train", sub: "Venice → Milan → Zürich, ~6hrs" },
+                { label: "🏙️ Zürich", sub: "2 nights" },
+                { label: "✈ Fly home", sub: "ZRH → Glasgow" },
+              ].map((stop, i, arr) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="bg-slate-700/50 rounded-lg px-3 py-2 text-center border border-slate-600/40">
+                    <p className="text-white font-semibold text-xs">{stop.label}</p>
+                    <p className="text-slate-400 text-[10px] mt-0.5">{stop.sub}</p>
+                  </div>
+                  {i < arr.length - 1 && <span className="text-slate-600 text-lg">→</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Route map */}
+          <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-sky-400" /> Route Map
+          </h3>
+          <div className="flex flex-wrap gap-4 mb-3 text-xs text-slate-300">
+            <span className="flex items-center gap-2"><span className="inline-block w-6 h-0.5 bg-amber-400 border-t-2 border-dashed border-amber-400" style={{borderTopStyle:'dashed'}} /> Van loop (Dolomites)</span>
+            <span className="flex items-center gap-2"><span className="inline-block w-6 h-0.5 bg-sky-400 border-t-2 border-dashed border-sky-400" style={{borderTopStyle:'dashed'}} /> Train to Zürich</span>
+            <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-amber-400 inline-block" /> Van stop / attraction</span>
+            <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-green-500 inline-block" /> Sosta spot</span>
+            <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-sky-400 inline-block" /> Zürich</span>
+          </div>
+          <div className="h-[480px] rounded-2xl overflow-hidden border border-slate-700/50 mb-8">
+            <MapWrapper
+              center={[46.4, 10.5]}
+              zoom={7}
+              markers={routeMarkers}
+              accentColor="#f59e0b"
+              routes={[vanRoute, trainRoute]}
+            />
+          </div>
+
+          {/* Venice → Zürich transport */}
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <Train className="w-5 h-5 text-sky-400" /> Venice → Zürich by Train
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {[
+              {
+                label: "Route",
+                value: "Venice Santa Lucia → Verona → Milan Centrale → Zürich HB",
+                note: "Total journey ~6 hours. EuroCity or Railjet service. Stunning Alpine scenery through the Gotthard route.",
+              },
+              {
+                label: "Price",
+                value: "~£50–80 2nd class",
+                note: "Book via Trainline or DB (Deutsche Bahn) for best advance fares. Booked 2–3 months ahead can be as low as £45.",
+              },
+              {
+                label: "Frequency",
+                value: "Several daily",
+                note: "Trains run throughout the day. Morning departures arrive in Zürich in the early afternoon — time for a city wander.",
+              },
+              {
+                label: "Tip",
+                value: "Book in advance",
+                note: "EuroCity trains can sell out in summer. Book tickets before you travel — no same-day cheap fares on international routes.",
+              },
+            ].map((t) => (
+              <div key={t.label} className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                <p className="text-slate-400 text-xs uppercase tracking-wide mb-1">{t.label}</p>
+                <p className="text-sky-400 font-bold text-sm mb-1">{t.value}</p>
+                <p className="text-slate-400 text-xs leading-relaxed">{t.note}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Zürich: what to do */}
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-sky-400" /> 2 Nights in Zürich
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {[
+              { name: "Zürich Old Town (Altstadt)", desc: "Wander the medieval lanes on both sides of the Limmat river, Grossmünster and Fraumünster cathedrals — free to explore.", tag: "Free" },
+              { name: "Kunsthaus Zürich", desc: "One of Switzerland's best art museums — Monet, Picasso, Giacometti and a world-class Impressionist collection.", tag: "~£18 entry" },
+              { name: "Lake Zürich Promenade", desc: "Walk or cycle the lake shore. In summer, open-air lidos let you swim right in the city. Stunning on a clear day with Alpine views.", tag: "Free" },
+              { name: "Rhine Falls Day Trip", desc: "Europe's largest waterfall by volume, 1hr by train to Schaffhausen. Boat trips to the base rock — genuinely dramatic.", tag: "~£22 return train" },
+              { name: "Swiss National Museum", desc: "Free entry. Switzerland's history from prehistoric times to the modern day — beautifully presented in a castle-like building.", tag: "Free" },
+              { name: "Bahnhofstrasse & Bürkliplatz", desc: "The world's most exclusive shopping street (window shopping is free) leads to a Saturday flea market and the lake.", tag: "Free" },
+            ].map((a) => (
+              <div key={a.name} className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <p className="font-bold text-white text-sm leading-snug">{a.name}</p>
+                  <span className="shrink-0 text-[10px] bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full border border-sky-500/20 whitespace-nowrap">{a.tag}</span>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Zürich accommodation */}
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <Info className="w-5 h-5 text-sky-400" /> Where to Stay in Zürich
+          </h3>
+          <p className="text-slate-400 text-sm mb-4">Switzerland is expensive — even budget hotels cost more than mid-range elsewhere. Prices below are per person for 2 nights sharing a double room.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            {[
+              {
+                name: "City Backpacker Hotel Biber",
+                type: "Budget",
+                price: "~£105–130pp / 2 nights",
+                note: "Private rooms in the Altstadt (old town). Walking distance to everything. Best-located budget option in the city.",
+                color: "border-slate-600/50",
+              },
+              {
+                name: "Hotel Otter",
+                type: "Mid-range",
+                price: "~£150–185pp / 2 nights",
+                note: "Charming traditional hotel right in the Altstadt. Excellent location, well-reviewed, often booked up — reserve early.",
+                color: "border-sky-500/30",
+              },
+              {
+                name: "25hours Hotel Zürich West",
+                type: "Comfort",
+                price: "~£190–240pp / 2 nights",
+                note: "Trendy design hotel in the Zürich West arts district. Great bar, easy tram ride to the centre. A step up in atmosphere.",
+                color: "border-slate-600/50",
+              },
+            ].map((h) => (
+              <div key={h.name} className={`bg-slate-800/50 rounded-xl border ${h.color} p-5`}>
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <p className="font-bold text-white text-sm leading-snug">{h.name}</p>
+                  <span className="shrink-0 text-[10px] bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full border border-sky-500/20">{h.type}</span>
+                </div>
+                <p className="text-sky-400 font-bold text-sm mb-2">{h.price}</p>
+                <p className="text-slate-400 text-xs leading-relaxed">{h.note}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Full trip pricing */}
+          <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <PoundSterling className="w-5 h-5 text-sky-400" /> Full Trip Cost — Dolomites + Zürich
+          </h3>
+          <p className="text-slate-400 text-sm mb-4 max-w-xl">
+            Complete breakdown per person for the whole trip: 10 nights in the van, 2 nights in Zürich, flights both ends. Ski and biking add-ons still apply on top.
+          </p>
+          <PricingTable
+            items={zurichPricing}
+            total="~£1,435pp"
+            duration="12 nights total"
+            accentColor="sky"
+          />
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { label: "Base trip only (no add-ons)", total: "~£1,435pp" },
+              { label: "+ Skiing (4 days)", total: "~£1,765pp" },
+              { label: "+ Mountain biking (4 days)", total: "~£1,615pp" },
+            ].map((s) => (
+              <div key={s.label} className="bg-slate-800/40 rounded-xl border border-sky-500/20 p-4 text-center">
+                <p className="text-slate-400 text-xs mb-1">{s.label}</p>
+                <p className="text-sky-400 font-bold text-lg">{s.total}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 bg-slate-800/30 rounded-xl border border-slate-600/30 p-4">
+            <p className="text-xs text-slate-400">
+              Flight costs assume one-way EDI → Venice (~£55) and one-way ZRH → GLA (~£85) booked separately rather than a return to Venice. Zürich accommodation based on mid-range Hotel Otter style (~£80pp/night sharing). Train Venice → Zürich booked in advance (2nd class). All prices approximate — check current fares when booking.
+            </p>
           </div>
         </section>
 

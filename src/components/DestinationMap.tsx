@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 
 export interface MapMarker {
@@ -12,11 +12,19 @@ export interface MapMarker {
   color?: string;
 }
 
+export interface MapRoute {
+  path: [number, number][];
+  color: string;
+  weight?: number;
+  dashArray?: string;
+}
+
 interface DestinationMapProps {
   center: [number, number];
   zoom: number;
   markers: MapMarker[];
   accentColor?: string;
+  routes?: MapRoute[];
 }
 
 // Fix default icon issue with webpack
@@ -39,6 +47,7 @@ export default function DestinationMap({
   zoom,
   markers,
   accentColor = "#f59e0b",
+  routes = [],
 }: DestinationMapProps) {
   useEffect(() => {
     // Fix leaflet default icons
@@ -63,6 +72,16 @@ export default function DestinationMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {routes.map((route, i) => (
+        <Polyline
+          key={i}
+          positions={route.path}
+          color={route.color}
+          weight={route.weight ?? 3}
+          dashArray={route.dashArray}
+          opacity={0.85}
+        />
+      ))}
       {markers.map((marker, index) => (
         <Marker
           key={index}

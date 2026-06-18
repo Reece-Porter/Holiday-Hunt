@@ -1,7 +1,9 @@
 "use client";
 
+"use client";
+
 import dynamic from "next/dynamic";
-import type { MapMarker } from "./DestinationMap";
+import type { MapMarker, MapRoute } from "./DestinationMap";
 
 const DestinationMap = dynamic(() => import("./DestinationMap"), {
   ssr: false,
@@ -20,15 +22,17 @@ interface MapWrapperProps {
   zoom: number;
   markers: MapMarker[];
   accentColor?: string;
+  routes?: MapRoute[];
 }
 
-export default function MapWrapper({ center, zoom, markers, accentColor }: MapWrapperProps) {
+export default function MapWrapper({ center, zoom, markers, accentColor, routes }: MapWrapperProps) {
   return (
     <DestinationMap
       center={center}
       zoom={zoom}
       markers={markers}
       accentColor={accentColor}
+      routes={routes}
     />
   );
 }
