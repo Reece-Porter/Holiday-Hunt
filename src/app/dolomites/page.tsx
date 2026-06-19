@@ -17,6 +17,8 @@ import {
 import MapWrapper from "@/components/MapWrapper";
 import PricingTable from "@/components/PricingTable";
 import type { MapMarker, MapRoute } from "@/components/DestinationMap";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 // Amber = attractions, Green = campervan parking / sosta
 const markers: MapMarker[] = [
@@ -214,6 +216,82 @@ const zurichPricing = [
   { label: "Activities in Zürich", amount: "£40", note: "Kunsthaus £18, Rhine Falls day train return £22" },
   { label: "Local transport — Zürich trams", amount: "£15", note: "24hr pass ~£8/day, covers all trams and buses" },
   { label: "Flight Zürich (ZRH) → Glasgow (GLA)", amount: "£85", note: "easyJet direct or via London — book separately" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "dol-flight-out", label: "Book outbound flight — Edinburgh/Glasgow → Venice", note: "easyJet or Ryanair to VCE. Book one-way if doing the Zürich extension.", urgent: true },
+      { id: "dol-flight-home", label: "Book return flight — Venice → home (or Zürich → Glasgow)", note: "If doing the Zürich extension, book ZRH → GLA separately instead of a Venice return.", urgent: true },
+    ],
+  },
+  {
+    title: "Campervan",
+    emoji: "🚐",
+    items: [
+      { id: "dol-van", label: "Book Roadsurfer van — station 78, Venice Mestre", note: "Beach Hopper or Surfer. Book as far in advance as possible — summer dates sell out.", urgent: true },
+      { id: "dol-van-rack", label: "Add ski rack or bike rack to van booking if needed", note: "Select the add-on during the Roadsurfer checkout process." },
+      { id: "dol-van-insurance", label: "Choose van insurance level", note: "Full coverage reduces your excess significantly. Review the options at checkout." },
+      { id: "dol-van-bedding", label: "Confirm bedding is included — check the van listing", note: "Roadsurfer usually includes sheets, duvet and pillows but verify on the listing." },
+    ],
+  },
+  {
+    title: "Accommodation & Camping",
+    emoji: "⛺",
+    items: [
+      { id: "dol-sosta-misurina", label: "Book Misurina Lake sosta in advance", note: "Fills up fast July–August. Check Park4Night or contact directly.", urgent: true },
+      { id: "dol-sosta-dobbiaco", label: "Book Lago di Dobbiaco sosta if visiting in peak season", note: "Popular lakeside spot — worth reserving ahead in summer.", urgent: true },
+      { id: "dol-park4night", label: "Download Park4Night and Campercontact apps", note: "Essential for finding and reading reviews of sosta spots on the road." },
+      { id: "dol-campsite-nights", label: "Identify 1–2 official campsite nights for proper shower access", note: "Camping Olympia (Cortina) or Camping Miravalle (Val Gardena) are reliable options." },
+    ],
+  },
+  {
+    title: "Activities — Core",
+    emoji: "🏔️",
+    items: [
+      { id: "dol-cablecars", label: "Check cable car opening dates for your travel window", note: "Seceda, Sass Pordoi and others have seasonal open/close dates. Verify on their websites." },
+      { id: "dol-braies", label: "Check Lake Braies shuttle booking", note: "In summer access is by shuttle bus only — reserve your slot in advance on the official site.", urgent: true },
+      { id: "dol-trecime-parking", label: "Note Tre Cime parking/shuttle info", note: "Arrive very early or use the Misurina shuttle in peak season. Busy site." },
+    ],
+  },
+  {
+    title: "Optional — Skiing",
+    emoji: "⛷️",
+    items: [
+      { id: "dol-ski-equipment", label: "Reserve ski / snowboard equipment hire", note: "Book at the resort in advance — popular shops sell out at peak times." },
+      { id: "dol-ski-pass", label: "Research Dolomiti Superski pass options", note: "2, 3, 4 or 7-day passes available. Check prices at dolomitisuperski.com." },
+    ],
+  },
+  {
+    title: "Optional — Mountain Biking",
+    emoji: "🚵",
+    items: [
+      { id: "dol-bike-hire", label: "Reserve mountain bike hire", note: "Full-suspension MTB. Book with local shops in Val Gardena or Cortina." },
+      { id: "dol-bike-lifts", label: "Check bike uplift lift passes", note: "Not all lifts allow bikes — check which are bike-permitted for your dates." },
+    ],
+  },
+  {
+    title: "Zürich Extension (if doing it)",
+    emoji: "🇨🇭",
+    items: [
+      { id: "dol-train-zurich", label: "Book Venice → Zürich train", note: "Via Verona and Milan, ~6hrs. Book on Trainline or DB (deutschebahn.com). Advance fares from ~£45.", urgent: true },
+      { id: "dol-zurich-hotel", label: "Book Zürich hotel — 2 nights", note: "Hotel Otter (Altstadt, mid-range) or City Backpacker Biber (budget). Zürich is expensive — book ahead.", urgent: true },
+      { id: "dol-flight-zrh", label: "Book Zürich (ZRH) → Glasgow (GLA) flight", note: "easyJet or similar. Book as a separate one-way rather than a return to Venice.", urgent: true },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "dol-passport", label: "Check passport is valid for travel dates", note: "Must be valid for the duration of your trip. Italy is Schengen — check UK post-Brexit rules." },
+      { id: "dol-insurance", label: "Buy travel insurance", note: "Include winter sports / skiing cover if applicable. Check activity cover for via ferrata and MTB too." },
+      { id: "dol-bank", label: "Notify your bank you're travelling", note: "Or use a fee-free card (Starling, Wise, Monzo) — no foreign transaction fees." },
+      { id: "dol-gbsticker", label: "Get a GB sticker for the van", note: "Required on UK-registered vehicles in Italy. Roadsurfer is EU-registered so may already have one — confirm at pickup." },
+      { id: "dol-coins", label: "Bring coins for sosta token showers", note: "€0.50 and €1 coins. Most soste token machines don't give change." },
+    ],
+  },
 ];
 
 export default function DolomitesPage() {
@@ -901,6 +979,15 @@ export default function DolomitesPage() {
               Flight costs assume one-way EDI → Venice (~£55) and one-way ZRH → GLA (~£85) booked separately rather than a return to Venice. Zürich accommodation based on mid-range Hotel Otter style (~£80pp/night sharing). Train Venice → Zürich booked in advance (2nd class). All prices approximate — check current fares when booking.
             </p>
           </div>
+        </section>
+
+        {/* Booking Checklist */}
+        <section className="mb-12">
+          <BookingChecklist
+            destination="dolomites"
+            sections={checklistSections}
+            accentColor="amber"
+          />
         </section>
 
       </div>

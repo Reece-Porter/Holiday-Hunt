@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import PricingTable from "@/components/PricingTable";
 import MapWrapper from "@/components/MapWrapper";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 // ── Markers ─────────────────────────────────────────────────────────────────
 const markers = [
@@ -198,6 +200,58 @@ const route = [
   { place: "Train to Berlin (6h 30min)", note: "ICE / Thalys" },
   { place: "Berlin", note: "3–4 nights" },
   { place: "Fly home from Berlin (BER)", note: "Depart" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "eu-flight-in", label: "Book one-way flight — Edinburgh/Glasgow → Amsterdam (AMS)", note: "easyJet or KLM direct. Very frequent — usually cheap to book. Fly in, city-hop by train, fly home from Berlin.", urgent: true },
+      { id: "eu-flight-out", label: "Book one-way return — Berlin (BER) → Edinburgh/Glasgow", note: "easyJet direct from BER. Ryanair also available. Book separately from the inbound.", urgent: true },
+    ],
+  },
+  {
+    title: "Trains Between Cities",
+    emoji: "🚂",
+    items: [
+      { id: "eu-train-amsbru", label: "Book Amsterdam → Brussels train (Thalys/Eurostar)", note: "~1hr 50min. Book via Eurostar.com or Trainline. Advance fares from ~£25. Runs frequently.", urgent: true },
+      { id: "eu-train-bruber", label: "Book Brussels → Berlin train (ICE or Thalys)", note: "~6.5hrs direct ICE, or Flixbus (~£15) if flexible on time. Book at least a few weeks ahead.", urgent: true },
+    ],
+  },
+  {
+    title: "Accommodation — 3 Separate Bookings",
+    emoji: "🏨",
+    items: [
+      { id: "eu-accom-amsterdam", label: "Book Amsterdam accommodation — 3 nights", note: "Central Canal Ring or Jordaan area. Amsterdam is expensive — book early. Hostels with private rooms are good value.", urgent: true },
+      { id: "eu-accom-brussels", label: "Book Brussels accommodation — 2 nights", note: "Near Grand Place or Ixelles. More affordable than Amsterdam. Book a few weeks ahead." },
+      { id: "eu-accom-berlin", label: "Book Berlin accommodation — 3–4 nights", note: "Mitte, Prenzlauer Berg or Kreuzberg. Berlin has lots of options — book 4–6 weeks ahead." },
+    ],
+  },
+  {
+    title: "Activities — Book Well Ahead",
+    emoji: "🎨",
+    items: [
+      { id: "eu-annefrank", label: "Book Anne Frank House tickets — Amsterdam", note: "This is the most important booking of the whole trip. Tickets sell out MONTHS in advance. Book at annefrank.org as soon as dates are confirmed.", urgent: true },
+      { id: "eu-rijksmuseum", label: "Book Rijksmuseum tickets — Amsterdam", note: "Rembrandt, Vermeer and Dutch masters. Book at rijksmuseum.nl — timed entry, worth booking a week or two ahead.", urgent: true },
+      { id: "eu-vangogh", label: "Book Van Gogh Museum tickets — Amsterdam", note: "Also sells out — book at vangoghmuseum.nl. World's largest Van Gogh collection." },
+      { id: "eu-atomium", label: "Book Atomium tickets — Brussels", note: "The iconic 1958 structure. Book at atomium.be — queues can be long without a ticket." },
+      { id: "eu-museumisland", label: "Research Museum Island tickets — Berlin", note: "Pergamon Museum is partially closed for renovation. Check what's open and book ahead at smb.museum." },
+      { id: "eu-eastside", label: "East Side Gallery — no booking needed", note: "1.3km of Berlin Wall murals, free and outdoor. Just show up." },
+      { id: "eu-keukenhof", label: "Keukenhof Flower Gardens — if visiting in spring (mid-Mar to mid-May)", note: "World's largest flower garden, 35 min from Amsterdam by bus. Book at keukenhof.nl — timed entry.", urgent: true },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "eu-passport", label: "Check passport validity for Schengen travel", note: "All three countries are Schengen. UK passport must be valid for 3 months beyond your return date and issued within the last 10 years." },
+      { id: "eu-insurance", label: "Buy travel insurance", note: "All three are safe and have good healthcare, but insurance is always worth having." },
+      { id: "eu-bank", label: "Set up a fee-free travel card (Starling, Wise or Monzo)", note: "All three countries use EUR. A fee-free card saves on conversion fees throughout." },
+      { id: "eu-gvb", label: "Research Amsterdam tram/metro options", note: "GVB day passes (~€9/day) or top-up OV-chipkaart. Trams are the main way to get around." },
+      { id: "eu-berlin-transport", label: "Research Berlin U-Bahn/S-Bahn day passes", note: "Berlin AB zone day pass ~€9. Covers all U-Bahn, S-Bahn, trams and buses." },
+    ],
+  },
 ];
 
 export default function EuropeCitiesPage() {
@@ -670,6 +724,14 @@ export default function EuropeCitiesPage() {
             </div>
           </div>
         </div>
+        {/* Booking Checklist */}
+        <section className="mb-12 mt-12">
+          <BookingChecklist
+            destination="europe-cities"
+            sections={checklistSections}
+            accentColor="teal"
+          />
+        </section>
       </div>
     </div>
   );

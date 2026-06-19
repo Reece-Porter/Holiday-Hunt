@@ -17,6 +17,8 @@ import {
 import PricingTable from "@/components/PricingTable";
 import MapWrapper from "@/components/MapWrapper";
 import type { MapMarker } from "@/components/DestinationMap";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 // Violet = city stays, teal = notable nearby attraction
 const markers: MapMarker[] = [
@@ -259,6 +261,60 @@ const pricingItems = [
   { label: "Food", amount: "£300", note: "Dubrovnik ~£22/day · Kotor ~£16/day · Sarajevo, Tirana & Ohrid ~£12–13/day. Meals from £3–8 outside Croatia." },
   { label: "Drinks, coffee & bars", amount: "£70", note: "~£5/day — local beer from £1.50, coffee from £1. Albania & Bosnia exceptionally cheap." },
   { label: "Activities", amount: "£250", note: "Dubrovnik walls £27, cable car £15, Lokrum ferry £10, Sarajevo tunnel museum £8, Kotor fortress £8, kayak hire £20, Bunk'Art £5, Berat day trip £11, Ohrid boat & church £12, misc £134" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "bal-flight-in", label: "Book one-way flight — Edinburgh/Glasgow → Dubrovnik (DBV)", note: "easyJet direct from Edinburgh. Ryanair from Glasgow via Dublin. Book separately from the return.", urgent: true },
+      { id: "bal-flight-out", label: "Book one-way return — Skopje (SKP) → Edinburgh/Glasgow", note: "Wizz Air, Ryanair or connect via London. Book this as a separate one-way ticket.", urgent: true },
+    ],
+  },
+  {
+    title: "Accommodation — 5 Separate Bookings",
+    emoji: "🏨",
+    items: [
+      { id: "bal-accom-dubrovnik", label: "Book Dubrovnik accommodation — 3 nights", note: "Fresh Sheets Hostel (budget) or Hostel Angelina (mid). Dubrovnik is expensive and fills up — book early.", urgent: true },
+      { id: "bal-accom-sarajevo", label: "Book Sarajevo accommodation — 3 nights", note: "Franz Ferdinand Hostel (budget), Hotel Michele (mid). Very affordable — easy to book." },
+      { id: "bal-accom-kotor", label: "Book Kotor accommodation — 2 nights", note: "Old Town Hostel Kotor or Hotel Marija. Inside the walls is the goal. Books up in summer.", urgent: true },
+      { id: "bal-accom-tirana", label: "Book Tirana accommodation — 3 nights", note: "Trip'N'Hostel (budget) or Hotel Kalemi (mid). Tirana is cheap and easy to book." },
+      { id: "bal-accom-ohrid", label: "Book Ohrid accommodation — 3 nights", note: "Sunny Lake Hostel or Tino's Guesthouse. Lakeside rooms are beautiful — book ahead for the best ones." },
+    ],
+  },
+  {
+    title: "Buses Between Countries",
+    emoji: "🚌",
+    items: [
+      { id: "bal-bus-dubsarajevo", label: "Check Dubrovnik → Sarajevo bus times and book if possible", note: "Globtour or Autoprevoz. ~5hrs. 2–3 daily. Some allow online booking — otherwise buy at station day before." },
+      { id: "bal-bus-sarajevokotor", label: "Check Sarajevo → Kotor bus times", note: "~5hrs, 1–2 daily. Book at Sarajevo bus station a day ahead in peak season." },
+      { id: "bal-bus-kotortirana", label: "Check Kotor → Tirana bus options", note: "Via Shkodër. ~6hrs. Confirm operator and times at Kotor bus station on arrival." },
+      { id: "bal-bus-tiranaorhid", label: "Check Tirana → Ohrid bus times", note: "~3.5hrs, several daily from Tirana station. Easy journey." },
+      { id: "bal-bus-ohridskopje", label: "Plan Ohrid → Skopje bus for flight day", note: "~3hrs. Must allow enough buffer time for Skopje airport. Check bus times match your flight.", urgent: true },
+    ],
+  },
+  {
+    title: "Activities",
+    emoji: "🏛️",
+    items: [
+      { id: "bal-dubrovnik-walls", label: "Pre-book Dubrovnik city walls tickets", note: "Costs ~£27. In summer they limit numbers and it can sell out — book online at visitdubrovnik.hr.", urgent: true },
+      { id: "bal-kotor-fortress", label: "Kotor fortress walls — no booking needed", note: "Pay on the day (~£8). Go early morning to beat the cruise-ship crowds." },
+      { id: "bal-sarajevo-tunnel", label: "Sarajevo War Tunnel Museum", note: "Book a tour or visit independently. Short taxi ride from centre." },
+      { id: "bal-berat-bus", label: "Plan Berat day trip from Tirana if interested", note: "1.5hr bus from Tirana (Fushë-Krujë terminal), ~£4 return. Just turn up on the day." },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "bal-passport", label: "Check passport is valid for all 5 countries", note: "No visa required for UK passport holders. Croatia is Schengen; Bosnia, Montenegro, Albania and N. Macedonia are not." },
+      { id: "bal-insurance", label: "Buy travel insurance covering all 5 countries", note: "Make sure all destinations are listed. Standard European cover may not include Albania and North Macedonia — check." },
+      { id: "bal-bank", label: "Plan your currency strategy — 4 different currencies", note: "EUR (Montenegro, Croatia), BAM (Bosnia), ALL (Albania — though EUR accepted), MKD (N. Macedonia). Get some cash at each border — ATMs are available in all cities." },
+      { id: "bal-bolt", label: "Download Bolt app before you go", note: "Works across all 5 cities. Much cheaper than flagging taxis on the street." },
+      { id: "bal-border-time", label: "Build extra time into border crossing bus journeys", note: "Especially Dubrovnik → Bosnia and Montenegro → Albania. Passport checks can add 30–90 mins in peak summer." },
+    ],
+  },
 ];
 
 export default function BalkansPage() {
@@ -589,6 +645,15 @@ export default function BalkansPage() {
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* Booking Checklist */}
+        <div className="mt-10">
+          <BookingChecklist
+            destination="balkans"
+            sections={checklistSections}
+            accentColor="violet"
+          />
         </div>
 
       </div>

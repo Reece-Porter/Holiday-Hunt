@@ -3,6 +3,8 @@ import { ChevronLeft, Plane, Car, MapPin, Clock, AlertCircle, Info } from "lucid
 import PricingTable from "@/components/PricingTable";
 import MapWrapper from "@/components/MapWrapper";
 import type { MapMarker } from "@/components/DestinationMap";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 const markers: MapMarker[] = [
   { name: "Banff Townsite", description: "Charming mountain town, hot springs, Banff Ave", lat: 51.1784, lng: -115.5708 },
@@ -36,6 +38,64 @@ const attractions = [
   { name: "Jasper Townsite", lat: 52.8737, lng: -118.0814, description: "Quieter than Banff, dark sky preserve" },
   { name: "Maligne Lake", lat: 52.7212, lng: -117.6361, description: "Spirit Island boat tours, kayaking" },
   { name: "Bow Lake", lat: 51.6690, lng: -116.4624, description: "Stunning viewpoint on Icefields Parkway" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "banff-flight-out", label: "Book outbound flight — Edinburgh/Glasgow → Calgary (YYC)", note: "Air Canada via Toronto, KLM via Amsterdam, or British Airways via London. Book 3–6 months ahead.", urgent: true },
+      { id: "banff-flight-home", label: "Book return flight — Calgary → home", note: "Allow time to get from Banff/Jasper back to Calgary airport (1.5–2hrs drive)." },
+    ],
+  },
+  {
+    title: "Entry Requirements",
+    emoji: "🛂",
+    items: [
+      { id: "banff-eta", label: "Apply for Canadian eTA (Electronic Travel Authorisation)", note: "Required for UK citizens flying to Canada. Apply at canada.ca — costs CAD$7 (~£4). Takes minutes but do it before check-in.", urgent: true },
+    ],
+  },
+  {
+    title: "Car Hire — Book Early",
+    emoji: "🚗",
+    items: [
+      { id: "banff-car", label: "Book SUV or 4WD hire from Calgary Airport", note: "Absolutely essential — no public transport in the national parks. Book as early as possible. Summer stock runs out months in advance.", urgent: true },
+      { id: "banff-car-insurance", label: "Arrange car hire insurance", note: "Check your travel insurance — some policies cover rental car excess. Otherwise take Collision Damage Waiver from the hire company." },
+      { id: "banff-winter-tyres", label: "If travelling Oct–Apr: confirm winter tyres on rental vehicle", note: "Required by law in Alberta national parks in winter. Most Calgary airport rentals have them — confirm at booking." },
+    ],
+  },
+  {
+    title: "Parks & Key Bookings",
+    emoji: "🏔️",
+    items: [
+      { id: "banff-parks-pass", label: "Buy Parks Canada Discovery Pass", note: "Covers all national parks. ~£105 per adult. Buy at the park gate or in advance at parks.canada.ca. Required every time you enter.", urgent: true },
+      { id: "banff-moraine-shuttle", label: "Book Moraine Lake shuttle (CRITICAL — summer only)", note: "Moraine Lake road is closed to private vehicles in summer. The Parks Canada shuttle MUST be booked months in advance at reservation.pc.gc.ca. This sells out before most people even book their flights.", urgent: true },
+      { id: "banff-louise-shuttle", label: "Check Lake Louise parking or shuttle situation", note: "Also very busy in summer — a shuttle from Lake Louise village is often easier than driving to the lakeshore." },
+      { id: "banff-icefields-skywalk", label: "Book Columbia Icefield Glacier Adventure and Skywalk", note: "Can book ahead at brewstertravel.ca — recommended in July/August to avoid long queues." },
+      { id: "banff-jasper-dark-sky", label: "Check Jasper Dark Sky Festival dates if interested", note: "Held in October — a special experience if your dates align. Events book up." },
+    ],
+  },
+  {
+    title: "Accommodation",
+    emoji: "🏨",
+    items: [
+      { id: "banff-accom-banff", label: "Book Banff townsite accommodation", note: "Banff hotels and hostels fill up fast, especially July–August. Book 3–6 months ahead.", urgent: true },
+      { id: "banff-accom-jasper", label: "Book Jasper accommodation", note: "Smaller selection than Banff — book early. HI Jasper Hostel is good value." },
+      { id: "banff-accom-louisearea", label: "Consider a night near Lake Louise", note: "Staying near the lake (Chateau Lake Louise or Lake Louise Inn) means early morning access before the crowds arrive." },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "banff-passport", label: "Check passport is valid for travel dates", note: "Canada requires a valid passport for the duration of your stay." },
+      { id: "banff-insurance", label: "Buy travel insurance including medical cover", note: "Healthcare in Canada is not free for visitors. Medical costs can be enormous without insurance." },
+      { id: "banff-bank", label: "Set up fee-free travel card or notify bank", note: "Canada is card-friendly. Wise or Starling save on conversion fees." },
+      { id: "banff-bearsafety", label: "Read up on bear safety before you go", note: "Brown and black bears are real. Know what to do — carry bear spray (buy or rent locally, cannot fly with it). Parks Canada has good guidance." },
+      { id: "banff-alltrails", label: "Download AllTrails app with offline Banff/Jasper maps", note: "Essential for navigating hikes. Download maps before you lose signal." },
+    ],
+  },
 ];
 
 export default function BanffCanadaPage() {
@@ -242,6 +302,15 @@ export default function BanffCanadaPage() {
             </li>
           </ul>
         </div>
+
+        {/* Booking Checklist */}
+        <section className="mb-12 mt-12">
+          <BookingChecklist
+            destination="banff-canada"
+            sections={checklistSections}
+            accentColor="sky"
+          />
+        </section>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import { ChevronLeft, Plane, MapPin, Clock, AlertCircle, Info, Car } from "lucid
 import PricingTable from "@/components/PricingTable";
 import MapWrapper from "@/components/MapWrapper";
 import type { MapMarker } from "@/components/DestinationMap";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 const markers: MapMarker[] = [
   { name: "Tokyo Shibuya", description: "Scramble crossing, Harajuku, Shinjuku nightlife", lat: 35.6598, lng: 139.7004 },
@@ -37,6 +39,66 @@ const attractions = [
   { name: "Nara Deer Park", lat: 34.6851, lng: 135.8048, description: "Free-roaming deer, Todai-ji temple" },
   { name: "Osaka Dotonbori", lat: 34.6687, lng: 135.5013, description: "Neon lights, street food, takoyaki" },
   { name: "Hiroshima Peace Memorial", lat: 34.3955, lng: 132.4534, description: "Moving museum, atomic bomb dome" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "jp-flight-out", label: "Book outbound flight — Edinburgh/Glasgow → Tokyo (NRT or HND)", note: "Finnair via Helsinki, KLM via Amsterdam, or JAL/ANA. Book 3–6 months ahead for best prices.", urgent: true },
+      { id: "jp-flight-home", label: "Book return flight — Tokyo → home", note: "Can fly home from Tokyo, Osaka (KIX) or Hiroshima depending on final itinerary." },
+    ],
+  },
+  {
+    title: "JR Pass — Book Before You Travel",
+    emoji: "🚄",
+    items: [
+      { id: "jp-jrpass", label: "Buy Japan Rail Pass BEFORE leaving the UK", note: "Cannot be purchased inside Japan. 14-day pass ~£420. Buy from Japan Experience, JRPASS.com or similar. Exchange voucher at airport on arrival.", urgent: true },
+      { id: "jp-jrpass-activate", label: "Plan JR Pass activation date carefully", note: "Activate at the airport on day 1 only if you use the Shinkansen that day — otherwise activate when you first need it to avoid wasting days." },
+    ],
+  },
+  {
+    title: "Accommodation",
+    emoji: "🏨",
+    items: [
+      { id: "jp-accom-tokyo", label: "Book Tokyo accommodation", note: "Shinjuku, Shibuya or Asakusa are great bases. Tokyo fills up fast — book early.", urgent: true },
+      { id: "jp-accom-hakone", label: "Book Hakone accommodation (optional overnight)", note: "Ryokan with onsen — one of the trip highlights. Good ones sell out. Book 2–3 months ahead.", urgent: true },
+      { id: "jp-accom-kyoto", label: "Book Kyoto accommodation", note: "Kyoto is the most in-demand city in Japan — especially during cherry blossom (late March–April) and autumn leaves (Nov). Book as early as possible.", urgent: true },
+      { id: "jp-accom-osaka", label: "Book Osaka accommodation", note: "Dotonbori or Namba area. Usually easier to book than Kyoto but still book ahead." },
+      { id: "jp-accom-hiroshima", label: "Book Hiroshima accommodation", note: "City centre or near Peace Park. Easier to book than Kyoto/Osaka." },
+    ],
+  },
+  {
+    title: "Activities — Book in Advance",
+    emoji: "⛩️",
+    items: [
+      { id: "jp-teamlab", label: "Book teamLab Planets or Borderless tickets", note: "Tokyo immersive art experience. Sells out weeks ahead — book as soon as dates confirmed.", urgent: true },
+      { id: "jp-robot-restaurant", label: "Consider Robot Restaurant or sumo tournament tickets", note: "Niche but memorable — check availability and book ahead if interested." },
+      { id: "jp-fujicliimb", label: "Check Mt Fuji climbing regulations if planning to summit", note: "Climbing season July–Sept only. Since 2024 there is a gate fee and visitor limit. Register/pay in advance.", urgent: true },
+      { id: "jp-nara", label: "Nara Deer Park — no booking needed", note: "Just show up. Buy deer crackers from vendors. Amazing free half-day from Osaka or Kyoto." },
+    ],
+  },
+  {
+    title: "Money",
+    emoji: "💴",
+    items: [
+      { id: "jp-cash", label: "Arrange Japanese Yen cash before or on arrival", note: "Japan is still heavily cash-based. Withdraw from 7-Eleven or Japan Post ATMs (most reliable for foreign cards). Have cash ready from day 1.", urgent: true },
+      { id: "jp-suica", label: "Get a Suica or Pasmo IC card at the airport", note: "Reloadable card for metro, buses and convenience stores. Can now be added to iPhone Apple Wallet before arrival." },
+      { id: "jp-bank", label: "Use a fee-free travel card for ATM withdrawals", note: "Wise or Starling — minimises ATM fees which add up over 12 days." },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "jp-passport", label: "Check passport validity — 6+ months required", note: "Japan requires a valid passport for the duration of your stay." },
+      { id: "jp-visafree", label: "Confirm UK passport visa-free entry (90 days)", note: "Currently visa-free for UK citizens — verify no policy changes before travel." },
+      { id: "jp-insurance", label: "Buy travel insurance", note: "Include medical cover. Japan has excellent healthcare but it is not free for tourists." },
+      { id: "jp-pocket-wifi", label: "Book pocket WiFi rental or international SIM", note: "Pocket WiFi from the airport (Ninja WiFi, Global Advanced Communications) or buy a data SIM on arrival. Essential for maps and translation." },
+      { id: "jp-google-translate", label: "Download Google Translate with Japanese offline pack", note: "Camera translate mode is incredibly useful in Japan for menus and signs." },
+    ],
+  },
 ];
 
 export default function JapanPage() {
@@ -233,6 +295,14 @@ export default function JapanPage() {
             </li>
           </ul>
         </div>
+        {/* Booking Checklist */}
+        <section className="mb-12 mt-12">
+          <BookingChecklist
+            destination="japan"
+            sections={checklistSections}
+            accentColor="rose"
+          />
+        </section>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import { ChevronLeft, Plane, Car, MapPin, Clock, Info, PoundSterling } from "luc
 import MapWrapper from "@/components/MapWrapper";
 import PricingTable from "@/components/PricingTable";
 import type { MapMarker } from "@/components/DestinationMap";
+import BookingChecklist from "@/components/BookingChecklist";
+import type { ChecklistSection } from "@/components/BookingChecklist";
 
 const markers: MapMarker[] = [
   { name: "Bangkok", description: "Grand Palace, temples, street food", lat: 13.7563, lng: 100.5018 },
@@ -90,6 +92,67 @@ const pricingItems = [
   { label: "Local transport", amount: "£100", note: "Grab, tuk-tuks, overnight trains, scooter hire" },
   { label: "Tours & activities", amount: "£200", note: "Ha Long Bay cruise ~£80, Cu Chi Tunnels ~£20, other" },
   { label: "Vietnam e-visa", amount: "£15", note: "Apply online at least 3 days before arrival" },
+];
+
+const checklistSections: ChecklistSection[] = [
+  {
+    title: "Flights",
+    emoji: "✈️",
+    items: [
+      { id: "tv-flight-out", label: "Book outbound flight — Edinburgh/Glasgow → Bangkok (BKK)", note: "Qatar Airways via Doha or Emirates via Dubai. Open-jaw ticket: fly OUT of Ho Chi Minh City (SGN).", urgent: true },
+      { id: "tv-flight-home", label: "Book return flight — Ho Chi Minh City (SGN) → home", note: "Book as a separate one-way or as an open-jaw with the outbound. Compare Qatar, Emirates, Turkish Airlines.", urgent: true },
+      { id: "tv-internal-flights", label: "Book internal flights within the trip", note: "Bangkok → Chiang Mai (AirAsia/Thai Lion), and Hanoi → Hue or Da Nang (VietJet/Bamboo). Book early for cheapest fares.", urgent: true },
+    ],
+  },
+  {
+    title: "Visas",
+    emoji: "🛂",
+    items: [
+      { id: "tv-vietnam-evisa", label: "Apply for Vietnam e-visa", note: "Apply at least 3 weeks before travel at evisa.xuatnhapcanh.gov.vn. Cost ~£15. 90-day single entry.", urgent: true },
+      { id: "tv-thailand-visa", label: "Check Thailand visa-free entry rules", note: "UK passport holders get 60 days visa-free (check current rules before travel — policy updated 2024)." },
+    ],
+  },
+  {
+    title: "Accommodation",
+    emoji: "🏨",
+    items: [
+      { id: "tv-accom-bangkok", label: "Book Bangkok accommodation", note: "Stay in Silom, Sukhumvit or near Khao San Road depending on your vibe. Book first 2–3 nights at least." },
+      { id: "tv-accom-chiangmai", label: "Book Chiang Mai accommodation", note: "Old City or Nimman area. Guesthouses excellent value." },
+      { id: "tv-accom-hanoi", label: "Book Hanoi accommodation", note: "Old Quarter for atmosphere. Book first nights — rest can be flexible." },
+      { id: "tv-accom-halongbay", label: "Book Ha Long Bay overnight cruise", note: "2-day/1-night minimum recommended. Book a reputable mid-range junk — sells out in peak season.", urgent: true },
+      { id: "tv-accom-hoian", label: "Book Hoi An accommodation", note: "Stay in or just outside the Ancient Town. Very popular — book ahead in peak season (Dec–Mar).", urgent: true },
+      { id: "tv-accom-hcmc", label: "Book Ho Chi Minh City accommodation", note: "District 1 is most central. Last stop before flying home — book at least first night." },
+    ],
+  },
+  {
+    title: "Activities",
+    emoji: "🐘",
+    items: [
+      { id: "tv-elephant", label: "Book ethical elephant sanctuary near Chiang Mai", note: "Elephant Nature Park is the gold standard. Fills up months in advance — book as soon as flights are confirmed.", urgent: true },
+      { id: "tv-halongcruise", label: "Research and book Ha Long Bay cruise operator", note: "Avoid the very cheapest — mid-range operators (Indochina Junk, Paradise, Era Cruises) offer far better experience.", urgent: true },
+      { id: "tv-cuchi", label: "Book Cu Chi Tunnels tour from Ho Chi Minh City", note: "Half-day tour, easily booked last minute but nicer with a guide booked in advance." },
+      { id: "tv-cooking", label: "Consider a cooking class in Hoi An or Chiang Mai", note: "Hugely popular activity — book a few days ahead." },
+    ],
+  },
+  {
+    title: "Health & Vaccinations",
+    emoji: "💉",
+    items: [
+      { id: "tv-vaccines", label: "Visit GP or travel clinic for vaccination advice", note: "Hepatitis A and Typhoid recommended. Discuss Rabies, Japanese Encephalitis and Malaria prophylaxis for rural areas. Do this 6–8 weeks before travel.", urgent: true },
+      { id: "tv-insurance", label: "Buy comprehensive travel insurance", note: "Must include medical cover — healthcare costs in Southeast Asia without insurance can be very high." },
+    ],
+  },
+  {
+    title: "Documents & Admin",
+    emoji: "📄",
+    items: [
+      { id: "tv-passport", label: "Check passport validity — must have 6+ months remaining", note: "Both Thailand and Vietnam require 6 months validity beyond your travel dates." },
+      { id: "tv-bank", label: "Set up a fee-free travel card (Starling, Wise or Monzo)", note: "ATMs in both countries charge fees — a fee-free card minimises costs. Notify your bank regardless." },
+      { id: "tv-grab", label: "Download the Grab app before you go", note: "Grab (like Uber) works across Thailand and Vietnam. Avoids taxi scams and overcharging." },
+      { id: "tv-simcard", label: "Research SIM card options or international roaming", note: "Local SIMs are cheap and easy to buy at airports in Bangkok and Hanoi. Better than roaming." },
+      { id: "tv-adaptor", label: "Pack a travel adaptor", note: "Thailand uses Type A/B (US-style). Vietnam uses Type A/C. A universal adaptor covers both." },
+    ],
+  },
 ];
 
 export default function ThailandVietnamPage() {
@@ -409,6 +472,15 @@ export default function ThailandVietnamPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Booking Checklist */}
+        <section className="mb-12 mt-12">
+          <BookingChecklist
+            destination="thailand-vietnam"
+            sections={checklistSections}
+            accentColor="emerald"
+          />
         </section>
 
       </div>
